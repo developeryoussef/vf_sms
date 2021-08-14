@@ -24,7 +24,7 @@ class VoiceNovels extends StatefulWidget {
 }
 
 class _VoiceNovelsState extends State<VoiceNovels> {
- // TODO: Add _bannerAd
+  // TODO: Add _bannerAd
   late BannerAd _bannerAd;
   late BannerAd _bannerAd2;
 
@@ -156,7 +156,7 @@ class _VoiceNovelsState extends State<VoiceNovels> {
   @override
   void dispose() {
     _bannerAd.dispose();
-
+    _bannerAd2.dispose();
     // TODO: implement dispose
     super.dispose();
   }
@@ -239,217 +239,222 @@ class _VoiceNovelsState extends State<VoiceNovels> {
                     return AnimationLimiter(
                       child: ListView.builder(
                           itemBuilder: (ctx, i) {
-                              if (_isBannerAd2Ready == true && i == 0) {
-                                return Container(
-                                  width: _bannerAd2.size.width.toDouble(),
-                                  height: _bannerAd2.size.height.toDouble(),
-                                  child: AdWidget(ad: _bannerAd2),
-                                );
-                              } else if (_isBannerAd2Ready == false) {
-                            return AnimationConfiguration.staggeredList(
-                              position: i-1,
-                              duration: const Duration(milliseconds: 500),
-                              child: SlideAnimation(
-                                verticalOffset: 0,
-                                child: FadeInAnimation(
-                                  child: Padding(
-                                    padding: EdgeInsets.all(8),
-                                    child: OpenContainer(
-                                      transitionType:
-                                          ContainerTransitionType.fadeThrough,
-                                      closedBuilder: (ctx, c) {
-                                        return GestureDetector(
-                                          child: Container(
-                                            width: _width,
-                                            height: _height * .08,
-                                            child: Row(
-                                              children: [
-                                                SizedBox(
-                                                  width: 15,
-                                                ),
-                                                Icon(
-                                                  Icons.chevron_left,
-                                                  color: Colors.black,
-                                                ),
-                                                SizedBox(
-                                                  width: 25,
-                                                ),
-                                                Text(widget.nameAr2),
-                                                SizedBox(
-                                                  width: _width * .2,
-                                                ),
-                                                Text(
-                                                  state.voiceNovels[i].title,
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontFamily: 'Cairo',
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 16),
-                                                ),
-                                                Expanded(
-                                                    child: Align(
-                                                  alignment:
-                                                      Alignment.centerRight,
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            right: 8.0),
-                                                    child: Container(
-                                                      decoration: BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(8),
-                                                          boxShadow: [
-                                                            BoxShadow(
-                                                                color:
-                                                                    Colors.grey,
-                                                                blurRadius: 2)
-                                                          ],
-                                                          color: Colors.white),
-                                                      height: 40,
-                                                      width: 50,
-                                                      child: Image.asset(
-                                                          widget.photoPath),
-                                                    ),
+                            if (_isBannerAd2Ready == true && i == 0) {
+                              return Container(
+                                width: _bannerAd2.size.width.toDouble(),
+                                height: _bannerAd2.size.height.toDouble(),
+                                child: AdWidget(ad: _bannerAd2),
+                              );
+                            } else if (_isBannerAd2Ready == false) {
+                              return AnimationConfiguration.staggeredList(
+                                position: i - 1,
+                                duration: const Duration(milliseconds: 500),
+                                child: SlideAnimation(
+                                  verticalOffset: 0,
+                                  child: FadeInAnimation(
+                                    child: Padding(
+                                      padding: EdgeInsets.all(8),
+                                      child: OpenContainer(
+                                        transitionType:
+                                            ContainerTransitionType.fadeThrough,
+                                        closedBuilder: (ctx, c) {
+                                          return GestureDetector(
+                                            child: Container(
+                                              width: _width,
+                                              height: _height * .08,
+                                              child: Row(
+                                                children: [
+                                                  SizedBox(
+                                                    width: 15,
                                                   ),
-                                                ))
-                                              ],
+                                                  Icon(
+                                                    Icons.chevron_left,
+                                                    color: Colors.black,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 25,
+                                                  ),
+                                                  Text(widget.nameAr2),
+                                                  SizedBox(
+                                                    width: _width * .2,
+                                                  ),
+                                                  Text(
+                                                    state.voiceNovels[i].title,
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontFamily: 'Cairo',
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 16),
+                                                  ),
+                                                  Expanded(
+                                                      child: Align(
+                                                    alignment:
+                                                        Alignment.centerRight,
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              right: 8.0),
+                                                      child: Container(
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8),
+                                                            boxShadow: [
+                                                              BoxShadow(
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  blurRadius: 2)
+                                                            ],
+                                                            color:
+                                                                Colors.white),
+                                                        height: 40,
+                                                        width: 50,
+                                                        child: Image.asset(
+                                                            widget.photoPath),
+                                                      ),
+                                                    ),
+                                                  ))
+                                                ],
+                                              ),
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                      color: Colors.grey
+                                                          .withOpacity(.7),
+                                                      blurRadius: 4,
+                                                      offset: Offset(0, 1))
+                                                ],
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                              ),
                                             ),
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              boxShadow: [
-                                                BoxShadow(
-                                                    color: Colors.grey
-                                                        .withOpacity(.7),
-                                                    blurRadius: 4,
-                                                    offset: Offset(0, 1))
-                                              ],
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                            ),
-                                          ),
-                                          onTap: c,
-                                        );
-                                      },
-                                      openBuilder: (ctx, o) {
-                                        return VoiceDetails(
-                                                voiceNovel: state.voiceNovels[
-                                                    i]) /*NovelDetailsScreen(
+                                            onTap: c,
+                                          );
+                                        },
+                                        openBuilder: (ctx, o) {
+                                          return VoiceDetails(
+                                                  voiceNovel: state.voiceNovels[
+                                                      i]) /*NovelDetailsScreen(
                                             novel: state.novels[i],
                                           )*/
-                                            ;
-                                      },
+                                              ;
+                                        },
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            );
-                           }else{
-                                 return AnimationConfiguration.staggeredList(
-                              position: i-1,
-                              duration: const Duration(milliseconds: 500),
-                              child: SlideAnimation(
-                                verticalOffset: 0,
-                                child: FadeInAnimation(
-                                  child: Padding(
-                                    padding: EdgeInsets.all(8),
-                                    child: OpenContainer(
-                                      transitionType:
-                                          ContainerTransitionType.fadeThrough,
-                                      closedBuilder: (ctx, c) {
-                                        return GestureDetector(
-                                          child: Container(
-                                            width: _width,
-                                            height: _height * .08,
-                                            child: Row(
-                                              children: [
-                                                SizedBox(
-                                                  width: 15,
-                                                ),
-                                                Icon(
-                                                  Icons.chevron_left,
-                                                  color: Colors.black,
-                                                ),
-                                                SizedBox(
-                                                  width: 25,
-                                                ),
-                                                Text(widget.nameAr2),
-                                                SizedBox(
-                                                  width: _width * .2,
-                                                ),
-                                                Text(
-                                                  state.voiceNovels[i-1].title,
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontFamily: 'Cairo',
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 16),
-                                                ),
-                                                Expanded(
-                                                    child: Align(
-                                                  alignment:
-                                                      Alignment.centerRight,
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            right: 8.0),
-                                                    child: Container(
-                                                      decoration: BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(8),
-                                                          boxShadow: [
-                                                            BoxShadow(
-                                                                color:
-                                                                    Colors.grey,
-                                                                blurRadius: 2)
-                                                          ],
-                                                          color: Colors.white),
-                                                      height: 40,
-                                                      width: 50,
-                                                      child: Image.asset(
-                                                          widget.photoPath),
-                                                    ),
+                              );
+                            } else {
+                              return AnimationConfiguration.staggeredList(
+                                position: i - 1,
+                                duration: const Duration(milliseconds: 500),
+                                child: SlideAnimation(
+                                  verticalOffset: 0,
+                                  child: FadeInAnimation(
+                                    child: Padding(
+                                      padding: EdgeInsets.all(8),
+                                      child: OpenContainer(
+                                        transitionType:
+                                            ContainerTransitionType.fadeThrough,
+                                        closedBuilder: (ctx, c) {
+                                          return GestureDetector(
+                                            child: Container(
+                                              width: _width,
+                                              height: _height * .08,
+                                              child: Row(
+                                                children: [
+                                                  SizedBox(
+                                                    width: 15,
                                                   ),
-                                                ))
-                                              ],
+                                                  Icon(
+                                                    Icons.chevron_left,
+                                                    color: Colors.black,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 25,
+                                                  ),
+                                                  Text(widget.nameAr2),
+                                                  SizedBox(
+                                                    width: _width * .2,
+                                                  ),
+                                                  Text(
+                                                    state.voiceNovels[i - 1]
+                                                        .title,
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontFamily: 'Cairo',
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 16),
+                                                  ),
+                                                  Expanded(
+                                                      child: Align(
+                                                    alignment:
+                                                        Alignment.centerRight,
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              right: 8.0),
+                                                      child: Container(
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8),
+                                                            boxShadow: [
+                                                              BoxShadow(
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  blurRadius: 2)
+                                                            ],
+                                                            color:
+                                                                Colors.white),
+                                                        height: 40,
+                                                        width: 50,
+                                                        child: Image.asset(
+                                                            widget.photoPath),
+                                                      ),
+                                                    ),
+                                                  ))
+                                                ],
+                                              ),
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                      color: Colors.grey
+                                                          .withOpacity(.7),
+                                                      blurRadius: 4,
+                                                      offset: Offset(0, 1))
+                                                ],
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                              ),
                                             ),
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              boxShadow: [
-                                                BoxShadow(
-                                                    color: Colors.grey
-                                                        .withOpacity(.7),
-                                                    blurRadius: 4,
-                                                    offset: Offset(0, 1))
-                                              ],
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                            ),
-                                          ),
-                                          onTap: c,
-                                        );
-                                      },
-                                      openBuilder: (ctx, o) {
-                                        return VoiceDetails(
-                                                voiceNovel: state.voiceNovels[
-                                                    i-1]) /*NovelDetailsScreen(
+                                            onTap: c,
+                                          );
+                                        },
+                                        openBuilder: (ctx, o) {
+                                          return VoiceDetails(
+                                                  voiceNovel: state.voiceNovels[i -
+                                                      1]) /*NovelDetailsScreen(
                                             novel: state.novels[i],
                                           )*/
-                                            ;
-                                      },
+                                              ;
+                                        },
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            );
-                           
-                           } },
+                              );
+                            }
+                          },
                           itemCount: _isBannerAd2Ready
-                                ? state.voiceNovels.length + 1
-                                : state.voiceNovels.length),
+                              ? state.voiceNovels.length + 1
+                              : state.voiceNovels.length),
                     );
                   }
                   return Container();

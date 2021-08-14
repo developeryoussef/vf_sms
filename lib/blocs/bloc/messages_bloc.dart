@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:meta/meta.dart';
 import 'package:rewayat_alkateb_islam/models/messageRoom.dart';
@@ -34,11 +35,22 @@ class MessagesBloc extends Bloc<MessagesEvent, MessagesState> {
           yield MessagesFetched(messageRoom);
         }
       }
-    }else if (event is RefreshMessages){
-       dynamic messageRoom = await MessagingRepo().getAllMessages();   if (messageRoom == false) {
+    } else if (event is RefreshMessages) {
+      dynamic messageRoom = await MessagingRepo().getAllMessages();
+      if (messageRoom == false) {
         yield MessagesFailed();
       } else {
         yield MessagesFetched(messageRoom);
+        Future.delayed(Duration(milliseconds: 200));
+        print(messageRoom.messages.length);
+        print(event.messageRoom.messages.length);
+        if ((event.messageRoom.messages.length) <
+            (messageRoom.messages.length)) {
+          event._scrollController.animateTo(
+              event._scrollController.position.maxScrollExtent,
+              duration: Duration(milliseconds: 200),
+              curve: Curves.ease);
+        }
       }
     }
   }

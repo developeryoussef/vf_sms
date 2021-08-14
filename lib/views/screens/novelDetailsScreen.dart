@@ -64,8 +64,48 @@ class _NovelDetailsScreenState extends State<NovelDetailsScreen> {
     );
   }
 
+  late BannerAd _bannerAd;
+
+  bool _isBannerAdReady = false;
+
   @override
   void initState() {
+    _bannerAd = BannerAd(
+      adUnitId: bannerAdUnit5,
+      request: AdRequest(),
+      size: AdSize.fullBanner,
+      listener: BannerAdListener(
+        onAdLoaded: (_) {
+          setState(() {
+            _isBannerAdReady = true;
+          });
+        },
+        onAdFailedToLoad: (ad, err) {
+          print('Failed to load a banner ad: ${err.message}');
+          _isBannerAdReady = false;
+          ad.dispose();
+          _bannerAd = BannerAd(
+            adUnitId: bannerAdUnit2,
+            request: AdRequest(),
+            size: AdSize.fullBanner,
+            listener: BannerAdListener(
+              onAdLoaded: (_) {
+                setState(() {
+                  _isBannerAdReady = true;
+                });
+              },
+              onAdFailedToLoad: (ad, err) {
+                print('Failed to load a banner ad: ${err.message}');
+                _isBannerAdReady = false;
+                ad.dispose();
+              },
+            ),
+          );
+        },
+      ),
+    );
+
+    _bannerAd.load();
     _loadRewardedAd();
     super.initState();
   }
@@ -116,103 +156,121 @@ class _NovelDetailsScreenState extends State<NovelDetailsScreen> {
           ),
         ),
       ),
-      body: Container(
-        height: _height,
-        color: bckgColor,
-        width: _width,
-        child: Column(
-          children: [
-            SizedBox(
-              height: 10,
-            ),
-            Expanded(
-                child: ScrollWrapper(
-              promptTheme: PromptButtonTheme(
-                  color: isDark ? Color(0xffFFD369) : kMainColor),
-              scrollController: scrollController,
-              child: ListView.separated(
-                controller: scrollController,
-                separatorBuilder: (xt, i) {
-                  return Divider(
-                    color: Colors.grey,
-                  );
-                },
-                itemBuilder: (ctx, i) {
-                  return Padding(
-                    padding: const EdgeInsets.only(),
-                    child: ListTile(
-                      trailing: InkWell(
-                        onTap: () async {
-                          //TODO UNCOMMENT REWARDED AD
-                          _rewardedAd.show(
-                              onUserEarnedReward: (rewardAd, rwItem) async {
-                            print(
-                                "rw ad + ${rewardAd.responseInfo}  +++++ rw item + ${rwItem.amount} + ${rwItem.type}");
-                            SharedPreferences sharedPreferences =
-                                await SharedPreferences.getInstance();
-                            print(sharedPreferences.getDouble("PointsPerAd"));
+      body: Stack(
+        children: [
+          Container(
+            height: _height,
+            color: bckgColor,
+            width: _width,
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 10,
+                ),
+                Expanded(
+                    child: ScrollWrapper(
+                  promptTheme: PromptButtonTheme(
+                      color: isDark ? Color(0xffFFD369) : kMainColor),
+                  scrollController: scrollController,
+                  child: ListView.separated(
+                    controller: scrollController,
+                    separatorBuilder: (xt, i) {
+                      return Divider(
+                        color: Colors.grey,
+                      );
+                    },
+                    itemBuilder: (ctx, i) {
+                      return Padding(
+                        padding: const EdgeInsets.only(),
+                        child: ListTile(
+                          trailing: InkWell(
+                            onTap: () async {
+                              //TODO UNCOMMENT REWARDED AD
+                              _rewardedAd.show(
+                                  onUserEarnedReward: (rewardAd, rwItem) async {
+                                print(
+                                    "rw ad + ${rewardAd.responseInfo}  +++++ rw item + ${rwItem.amount} + ${rwItem.type}");
+                                SharedPreferences sharedPreferences =
+                                    await SharedPreferences.getInstance();
+                                print(
+                                    sharedPreferences.getDouble("PointsPerAd"));
 
-                            await PointsRepo().increasePoints();
-                  
-                          });
+                                await PointsRepo().increasePoints();
+                              });
 
-                          SharedPreferences prefs =
-                              await SharedPreferences.getInstance();
-                          prefs.setString("novelName", widget.novel.title);
-                          prefs.setString("categoryName", widget.categoryAr);
-                          prefs.setInt("index", i);
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+                              prefs.setString("novelName", widget.novel.title);
+                              prefs.setString(
+                                  "categoryName", widget.categoryAr);
+                              prefs.setInt("index", i);
 
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              duration: Duration(seconds: 8),
-                              content: Text(
-                                "تم وضع العلامة",
-                                style: TextStyle(color: Colors.white),
-                              )));
-                        },
-                        child: Container(
-                          width: _width * .1,
-                          child: Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  '${i + 1}',
-                                  style: TextStyle(
-                                    color: isDark ? bckgColor : Colors.white,
-                                  ),
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                      duration: Duration(seconds: 8),
+                                      content: Text(
+                                        "تم وضع العلامة",
+                                        style: TextStyle(color: Colors.white),
+                                      )));
+                            },
+                            child: Container(
+                              width: _width * .1,
+                              child: Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      '${i + 1}',
+                                      style: TextStyle(
+                                        color:
+                                            isDark ? bckgColor : Colors.white,
+                                      ),
+                                    ),
+                                    Icon(
+                                      Elusive.bookmark,
+                                      color: isDark ? bckgColor : Colors.white,
+                                      size: 28,
+                                    )
+                                  ],
                                 ),
-                                Icon(
-                                  Elusive.bookmark,
-                                  color: isDark ? bckgColor : Colors.white,
-                                  size: 28,
-                                )
-                              ],
+                              ),
+                              decoration: BoxDecoration(
+                                  color:
+                                      isDark ? Color(0xffFFD369) : kMainColor,
+                                  borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(15),
+                                      bottomRight: Radius.circular(15))),
                             ),
                           ),
-                          decoration: BoxDecoration(
-                              color: isDark ? Color(0xffFFD369) : kMainColor,
-                              borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(15),
-                                  bottomRight: Radius.circular(15))),
+                          title: Text(
+                            widget.novel.phrases[i],
+                            style: TextStyle(
+                              fontSize: 16, color: textColor,
+                              fontWeight: FontWeight.bold,
+                              //   color: Colors.black.withOpacity(.7),
+                            ),
+                            textDirection: TextDirection.rtl,
+                          ),
                         ),
-                      ),
-                      title: Text(
-                        widget.novel.phrases[i],
-                        style: TextStyle(
-                          fontSize: 16, color: textColor,
-                          fontWeight: FontWeight.bold,
-                          //   color: Colors.black.withOpacity(.7),
-                        ),
-                        textDirection: TextDirection.rtl,
-                      ),
-                    ),
-                  );
-                },
-                itemCount: widget.novel.phrases.length,
-              ),
-            ))
-          ],
-        ),
+                      );
+                    },
+                    itemCount: widget.novel.phrases.length,
+                  ),
+                ))
+              ],
+            ),
+          ),
+          if (_isBannerAdReady)
+            Positioned(
+              child: Container(
+                  height: _bannerAd.size.height.toDouble(),
+                  width: _bannerAd.size.width.toDouble(),
+                  child: AdWidget(
+                    ad: _bannerAd,
+                  )),
+              bottom: 0,
+            )
+        ],
       ),
     );
   }

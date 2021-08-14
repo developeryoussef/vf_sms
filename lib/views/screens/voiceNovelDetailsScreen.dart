@@ -12,6 +12,7 @@ import 'package:rewayat_alkateb_islam/models/voiceNovel.dart';
 import 'package:rewayat_alkateb_islam/repositories/PointsRepo.dart';
 import 'package:rewayat_alkateb_islam/repositories/pricesRepo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wakelock/wakelock.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 class VoiceDetails extends StatefulWidget {
@@ -48,6 +49,8 @@ class _VoiceDetailsState extends State<VoiceDetails> {
 
   @override
   void initState() {
+    Wakelock.enable();
+
     initAds();
     timer = Timer.periodic(Duration(seconds: 15), (t) async {
  PointsRepo().increaseFromVideoWatching();
@@ -67,7 +70,8 @@ class _VoiceDetailsState extends State<VoiceDetails> {
   }
 
   @override
-  void dispose() {
+  void dispose() {Wakelock.disable();
+
     _bannerAd.dispose();
     _bannerAd2.dispose();
     timer.cancel();

@@ -259,16 +259,26 @@ class _CategoryNovelsState extends State<CategoryNovels> {
                                                     ),
                                                     Text(widget.nameAr2),
                                                     SizedBox(
-                                                      width: _width * .14,
+                                                      width: _width * .1,
                                                     ),
-                                                    Text(
-                                                      state.novels[i].title,
-                                                      style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontFamily: 'Cairo',
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 16),
+                                                    Container(
+                                                      width: _width * .5,
+                                                      child: Center(
+                                                        child: Text(
+                                                          state.novels[i].title,
+                                                          textDirection:
+                                                              TextDirection.rtl,
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontFamily:
+                                                                  'Cairo',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontSize: 14),
+                                                        ),
+                                                      ),
                                                     ),
                                                     Expanded(
                                                         child: Align(
@@ -317,13 +327,13 @@ class _CategoryNovelsState extends State<CategoryNovels> {
                                                 ),
                                               ),
                                               onTap: () async {
-                                                 _rewardedAd.show(
-                                                    onUserEarnedReward:
-                                                        (rewardAd,
-                                                            rwItem) async {
-                                                
-                                                });
-                                      
+                                                if (_isRewardedAdReady) {
+                                                  _rewardedAd.show(
+                                                      onUserEarnedReward:
+                                                          (rewardAd,
+                                                              rwItem) async {});
+                                                }
+
                                                 c();
                                               },
                                             );
@@ -430,10 +440,12 @@ class _CategoryNovelsState extends State<CategoryNovels> {
                                                 ),
                                               ),
                                               onTap: () {
-                                                _rewardedAd.show(
-                                                    onUserEarnedReward: (c, p) {
-                                                  print(p.amount);
-                                                });
+                                                if (_isRewardedAdReady) {
+                                                  _rewardedAd.show(
+                                                      onUserEarnedReward:
+                                                          (rewardAd,
+                                                              rwItem) async {});
+                                                }
 
                                                 c();
                                               },

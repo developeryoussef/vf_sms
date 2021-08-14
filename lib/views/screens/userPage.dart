@@ -5,6 +5,7 @@ import 'package:gradient_widgets/gradient_widgets.dart';
 import 'package:rewayat_alkateb_islam/blocs/bloc/user_bloc.dart';
 import 'package:rewayat_alkateb_islam/constants.dart';
 import 'package:rewayat_alkateb_islam/views/screens/authScreen.dart';
+import 'package:share/share.dart';
 import 'package:superellipse_shape/superellipse_shape.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:whatsapp_unilink/whatsapp_unilink.dart';
@@ -142,7 +143,7 @@ class _UserPageState extends State<UserPage> {
                         //FlutterOpenWhatsapp.sendSingleMessage("918179015345", "Hello");
                         if (state.user.credit >= 3) {
                           final link = WhatsAppUnilink(
-                            phoneNumber: '+20 114 218 7866',
+                            phoneNumber: '+201030538962',
                             text: "hey \ni want to get " +
                                 state.user.credit.toStringAsFixed(3) +
                                 ' \$' +
@@ -158,7 +159,36 @@ class _UserPageState extends State<UserPage> {
                         }
                       }),
                   SizedBox(
-                    height: _height * .35,
+                    height: _height * .28,
+                  ),
+                  GradientButton(
+                      shapeRadius: BorderRadius.circular(6),
+                      increaseWidthBy: _width * .7,
+                      increaseHeightBy: 2,
+                      elevation: 0,
+                      shadowColor: Colors.transparent,
+                      gradient: LinearGradient(colors: [
+                        kMainColor,
+                        Color(0xFF02A2FF),
+                      ]),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "مشاركة التطبيق",
+                            style: TextStyle(
+                                fontFamily: 'Cairo',
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                      callback: () async {
+                        Share.share(
+                            "https://play.google.com/store/apps/details?id=com.app.rewayat_alkateb_islam");
+                      }),
+                  SizedBox(
+                    height: _height * .01,
                   ),
                   GradientButton(
                       shapeRadius: BorderRadius.circular(6),

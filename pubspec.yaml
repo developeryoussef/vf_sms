@@ -54,6 +54,8 @@ dependencies:
   connectivity_wrapper: 
   fluttertoast: ^8.0.8
   flutter_animated_dialog: ^1.2.0
+  wakelock: ^0.5.3+3
+  share: ^2.0.4
 
   
 dev_dependencies:

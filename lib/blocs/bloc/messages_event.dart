@@ -17,5 +17,7 @@ class SendMessage extends MessagesEvent{
 
 
 class RefreshMessages extends MessagesEvent{
-
+final ScrollController  _scrollController;
+final MessageRoom messageRoom;
+  RefreshMessages(this._scrollController, this.messageRoom);
 }
