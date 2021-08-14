@@ -133,7 +133,8 @@ class PointsRepo {
             duration: Duration(seconds: 1),
           );
           EasyLoading.dismiss();
-        } else {
+        } else {                      EasyLoading.dismiss();
+
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text("ليس معك نقاط كافية")));
         }
@@ -205,7 +206,8 @@ class PointsRepo {
           duration: Duration(seconds: 1),
         );
         EasyLoading.dismiss();
-      } else {
+      } else {                      EasyLoading.dismiss();
+
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text("ليس معك نقاط كافية")));
       }

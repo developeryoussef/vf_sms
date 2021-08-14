@@ -55,7 +55,7 @@ class _UserPageState extends State<UserPage> {
               child: Column(
                 children: [
                   SizedBox(
-                    height: 20,
+                    height: _height*.03,
                   ),
                   Container(
                     child: Center(
@@ -69,7 +69,7 @@ class _UserPageState extends State<UserPage> {
                     ),
                   ),
                   SizedBox(
-                    height: 15,
+                    height: _height*.02,
                   ),
                   CircleAvatar(
                     radius: 65,
@@ -77,7 +77,7 @@ class _UserPageState extends State<UserPage> {
                     foregroundImage: AssetImage("assets/images/avatar.png"),
                   ),
                   SizedBox(
-                    height: 15,
+                    height: _height*.02,
                   ),
                   Container(
                     child: Center(
@@ -91,7 +91,7 @@ class _UserPageState extends State<UserPage> {
                     ),
                   ),
                   SizedBox(
-                    height: 15,
+                    height: _height*.02,
                   ),
                   Material(
                     shape: SuperellipseShape(
@@ -115,7 +115,7 @@ class _UserPageState extends State<UserPage> {
                     ),
                   ),
                   SizedBox(
-                    height: 18,
+                    height: _height*.02,
                   ),
                   GradientButton(
                       shapeRadius: BorderRadius.circular(6),
@@ -159,7 +159,7 @@ class _UserPageState extends State<UserPage> {
                         }
                       }),
                   SizedBox(
-                    height: _height * .28,
+                    height: _height * .2,
                   ),
                   GradientButton(
                       shapeRadius: BorderRadius.circular(6),
