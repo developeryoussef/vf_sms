@@ -75,7 +75,8 @@ class PointsRepo {
                       create: (context) => MessagesBloc()..add(FetchMessages()),
                       child: ChatPage(),
                     )));
-      } else {      bool isEnough=await isEnoughPoints();
+      } else {
+        bool isEnough = await isEnoughPoints();
 
         if (isEnough) {
           EasyLoading.dismiss();
@@ -87,7 +88,7 @@ class PointsRepo {
                 textDirection: TextDirection.rtl,
                 child: ClassicGeneralDialogWidget(
                   titleText: 'حللي مشكلتي',
-                  contentText: 'سيتم خصم 200 نقطة',
+                  contentText: 'علشان اساعدك في حل مشكلتك سيتم خصم 200 نقطة',
                   negativeText: "الغاء",
                   positiveText: "اكمل",
                   onPositiveClick: () async {
@@ -99,7 +100,7 @@ class PointsRepo {
                     double? creditPriceFor1KPoints =
                         sharedPreferences.getDouble("creditPriceFor1kPoints");
                     Response responsee = await Dio().put(
-                     "$baseUrl/users/fb/${auth.FirebaseAuth.instance.currentUser!.uid}",
+                        "$baseUrl/users/fb/${auth.FirebaseAuth.instance.currentUser!.uid}",
                         data: {
                           "points": (points),
                           "credit": ((points / 1000) * creditPriceFor1KPoints!)
@@ -107,7 +108,8 @@ class PointsRepo {
 
                     Response response = await Dio().patch(
                         "$baseUrl/messaging/${auth.FirebaseAuth.instance.currentUser!.uid}admin");
-                    if (response.statusCode == 200) {                  Navigator.of(context).pop();
+                    if (response.statusCode == 200) {
+                      Navigator.of(context).pop();
 
                       EasyLoading.dismiss();
                       Navigator.push(
@@ -133,13 +135,15 @@ class PointsRepo {
             duration: Duration(seconds: 1),
           );
           EasyLoading.dismiss();
-        } else {                      EasyLoading.dismiss();
+        } else {
+          EasyLoading.dismiss();
 
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text("ليس معك نقاط كافية")));
         }
       }
-    } else { bool isEnough=await isEnoughPoints();
+    } else {
+      bool isEnough = await isEnoughPoints();
       print(isEnoughPoints());
       // ignore: unrelated_type_equality_checks
       if (isEnough) {
@@ -152,7 +156,7 @@ class PointsRepo {
               textDirection: TextDirection.rtl,
               child: ClassicGeneralDialogWidget(
                 titleText: 'حللي مشكلتي',
-                contentText: 'سيتم خصم 200 نقطة',
+                contentText: 'علشان اساعدك في حل مشكلتك سيتم خصم 200 نقطة',
                 negativeText: "الغاء",
                 positiveText: "اكمل",
                 onPositiveClick: () async {
@@ -179,7 +183,7 @@ class PointsRepo {
                           "credit": ((points / 1000) * creditPriceFor1KPoints!)
                         });
                     if (response.statusCode == 200) {
-                                        Navigator.of(context).pop();
+                      Navigator.of(context).pop();
 
                       EasyLoading.dismiss();
                       Navigator.push(
@@ -206,7 +210,8 @@ class PointsRepo {
           duration: Duration(seconds: 1),
         );
         EasyLoading.dismiss();
-      } else {                      EasyLoading.dismiss();
+      } else {
+        EasyLoading.dismiss();
 
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text("ليس معك نقاط كافية")));
@@ -221,7 +226,8 @@ class PointsRepo {
     );
     if (responsee.statusCode == 200) {
       user = User.fromJson(responsee.data['data']);
-    }print(responsee.data);
+    }
+    print(responsee.data);
     return (user.points) >= 200;
   }
 }
