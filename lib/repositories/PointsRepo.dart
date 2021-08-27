@@ -57,11 +57,17 @@ class PointsRepo {
     EasyLoading.show();
     Response response = await Dio().get(
         "$baseUrl/messaging/check/${auth.FirebaseAuth.instance.currentUser!.uid}admin");
-    print(response.data);
+ 
     if (response.data['exists'] == true) {
-      print('exists');
-
-      Response response = await Dio().get(
+      EasyLoading.dismiss();
+       Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (ctx) => BlocProvider(
+                      create: (context) => MessagesBloc()..add(FetchMessages()),
+                      child: ChatPage(),
+                    )));
+    /*  Response response = await Dio().get(
           "$baseUrl/messaging/${auth.FirebaseAuth.instance.currentUser!.uid}admin");
       print(response.data);
       if (response.data['isChatAcive'] == true) {
@@ -141,9 +147,25 @@ class PointsRepo {
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text("ليس معك نقاط كافية")));
         }
-      }
+      }*/
     } else {
-      bool isEnough = await isEnoughPoints();
+       Response response =
+                      await Dio().post("$baseUrl/messaging/", data: {
+                    "roomId":
+                        (auth.FirebaseAuth.instance.currentUser!.uid + "admin"),
+                    "roomName":
+                        (auth.FirebaseAuth.instance.currentUser!.displayName)
+                  });
+EasyLoading.dismiss();
+       Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (ctx) => BlocProvider(
+                      create: (context) => MessagesBloc()..add(FetchMessages()),
+                      child: ChatPage(),
+                    )));
+
+   /*   bool isEnough = await isEnoughPoints();
       print(isEnoughPoints());
       // ignore: unrelated_type_equality_checks
       if (isEnough) {
@@ -215,7 +237,7 @@ class PointsRepo {
 
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text("ليس معك نقاط كافية")));
-      }
+      }*/
     }
   }
 

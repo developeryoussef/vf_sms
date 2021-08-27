@@ -6,11 +6,13 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttericon/entypo_icons.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:rewayat_alkateb_islam/blocs/bloc/messages_bloc.dart';
 import 'package:rewayat_alkateb_islam/blocs/bloc/user_bloc.dart';
 import 'package:rewayat_alkateb_islam/constants.dart';
 import 'package:rewayat_alkateb_islam/repositories/PointsRepo.dart';
 import 'package:rewayat_alkateb_islam/repositories/pricesRepo.dart';
 import 'package:rewayat_alkateb_islam/views/screens/authScreen.dart';
+import 'package:rewayat_alkateb_islam/views/screens/chatScreen.dart';
 import 'package:rewayat_alkateb_islam/views/screens/userPage.dart';
 import 'package:rewayat_alkateb_islam/views/widgets/categoryContainer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -137,8 +139,8 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             )
           ],
-          leading: Padding(              padding: const EdgeInsets.all(8.0),
-
+          leading: Padding(
+            padding: const EdgeInsets.all(8.0),
             child: InkWell(
               onTap: () {
                 Navigator.push(
@@ -153,8 +155,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 backgroundColor: Colors.amber[700],
                 child: Center(
                   child: Icon(
-                    FontAwesome.dollar,                      size: 20,
-
+                    FontAwesome.dollar,
+                    size: 20,
                     color: Colors.white,
                   ),
                 ),
@@ -379,7 +381,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             "حللي مشكلتي",
                             "assets/images/myProblem.png",
                             "moshkela", () async {
-                          await PointsRepo().decreaseForSolveMyProblem(context);
+                          PointsRepo().decreaseForSolveMyProblem(context);
                         }),
                       ],
                     ),

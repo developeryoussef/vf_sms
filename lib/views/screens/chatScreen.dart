@@ -83,7 +83,7 @@ late MessageRoom messageRoom;
   @override
   void initState() {
     _bannerAd = BannerAd(
-      adUnitId: bannerAdUnit4,
+      adUnitId: bannerAdUnit,
       request: AdRequest(),
       size: AdSize.banner,
       listener: BannerAdListener(
@@ -100,7 +100,7 @@ late MessageRoom messageRoom;
       ),
     );
     _bannerAd2 = BannerAd(
-      adUnitId: bannerAdUnit3,
+      adUnitId: bannerAdUnit4,
       request: AdRequest(),
       size: AdSize.fullBanner,
       listener: BannerAdListener(
@@ -119,9 +119,11 @@ late MessageRoom messageRoom;
     _bannerAd.load();
     _bannerAd2.load();
     textEditingController = new TextEditingController();
-    timer = Timer.periodic(Duration(seconds: 3), (t) {
+   Timer(Duration(seconds: 5), (){
+      timer = Timer.periodic(Duration(seconds: 3), (t) {
       BlocProvider.of<MessagesBloc>(context).add(RefreshMessages(_scrollController,messageRoom));
     });
+   });
     _scrollController = new ScrollController();
 
     super.initState();

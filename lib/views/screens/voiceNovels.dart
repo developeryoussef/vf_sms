@@ -131,7 +131,7 @@ class _VoiceNovelsState extends State<VoiceNovels> {
       ),
     );
     _bannerAd2 = BannerAd(
-      adUnitId: bannerAdUnit3,
+      adUnitId: bannerAdUnit,
       request: AdRequest(),
       size: AdSize.fullBanner,
       listener: BannerAdListener(
