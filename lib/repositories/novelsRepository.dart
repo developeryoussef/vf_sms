@@ -15,7 +15,7 @@ class NovelsRepo {
     _dio.interceptors.add(_dioCacheManager.interceptor);
 
     Response response = await _dio.get("$baseUrl/novels/$category",
-       //options: buildCacheOptions(Duration(hours: 6))
+       options: buildCacheOptions(Duration(hours: 6))
         );
     if (response.statusCode == 200) {
       novels = [];

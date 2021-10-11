@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
@@ -14,15 +15,18 @@ import 'package:rewayat_alkateb_islam/repositories/pricesRepo.dart';
 import 'package:rewayat_alkateb_islam/views/screens/authScreen.dart';
 import 'package:rewayat_alkateb_islam/views/screens/chatScreen.dart';
 import 'package:rewayat_alkateb_islam/views/screens/userPage.dart';
+import 'package:rewayat_alkateb_islam/views/screens/videoPage.dart';
 import 'package:rewayat_alkateb_islam/views/widgets/categoryContainer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:video_player/video_player.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> {   
+
   late BannerAd _bannerAd;
 
   bool _isBannerAdReady = false;
@@ -302,7 +306,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     height: _height * .01,
                   ),
                   Container(
-                    height: _height * .7,
+                    height: _height * .44,
                     width: _width,
                     child: GridView(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -334,6 +338,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         }, () {
                           _interstitialAd!.dispose();
                         }),
+                
                         buildCatContainer(
                             context,
                             _height,
@@ -360,7 +365,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         }, () {
                           _interstitialAd!.dispose();
                         }),
-                        buildCatContainer(
+                    /*    buildCatContainer(
                             context,
                             _height,
                             _width,
@@ -372,8 +377,13 @@ class _MyHomePageState extends State<MyHomePage> {
                           _interstitialAd?.show();
                         }, () {
                           _interstitialAd!.dispose();
-                        }),
-                        buildContainer(
+                        }),*/
+                   
+                      ],
+                    ),
+                  ),
+        
+                      buildContainer(
                             context,
                             _height,
                             _width,
@@ -383,9 +393,6 @@ class _MyHomePageState extends State<MyHomePage> {
                             "moshkela", () async {
                           PointsRepo().decreaseForSolveMyProblem(context);
                         }),
-                      ],
-                    ),
-                  )
                 ],
               ),
             ),

@@ -149,12 +149,15 @@ class PointsRepo {
         }
       }*/
     } else {
+      SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
+
        Response response =
                       await Dio().post("$baseUrl/messaging/", data: {
                     "roomId":
                         (auth.FirebaseAuth.instance.currentUser!.uid + "admin"),
                     "roomName":
-                        (auth.FirebaseAuth.instance.currentUser!.displayName)
+                        (auth.FirebaseAuth.instance.currentUser!.displayName),
+                        "userToken":sharedPreferences.getString("token")
                   });
 EasyLoading.dismiss();
        Navigator.push(

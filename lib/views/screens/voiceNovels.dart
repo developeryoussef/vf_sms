@@ -287,7 +287,7 @@ class _VoiceNovelsState extends State<VoiceNovels> {
                                                         fontFamily: 'Cairo',
                                                         fontWeight:
                                                             FontWeight.bold,
-                                                        fontSize: 16),
+                                                        fontSize: 14),
                                                   ),
                                                   Expanded(
                                                       child: Align(
@@ -382,17 +382,22 @@ class _VoiceNovelsState extends State<VoiceNovels> {
                                                   SizedBox(
                                                     width: _width * .2,
                                                   ),
-                                                  Text(
-                                                    state.voiceNovels[i - 1]
-                                                        .title,
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontFamily: 'Cairo',
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 16),
-                                                  ),
                                                   Expanded(
+                                                    flex: 2,
+                                                    child: Center(
+                                                      child: Text(
+                                                        state.voiceNovels[i - 1]
+                                                            .title,
+                                                        style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontFamily: 'Cairo',
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: 14),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Expanded(flex: 1,
                                                       child: Align(
                                                     alignment:
                                                         Alignment.centerRight,

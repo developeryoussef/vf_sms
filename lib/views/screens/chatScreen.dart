@@ -4,10 +4,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:rewayat_alkateb_islam/blocs/bloc/messages_bloc.dart';
 import 'package:rewayat_alkateb_islam/constants.dart';
 import 'package:rewayat_alkateb_islam/models/messageRoom.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({Key? key}) : super(key: key);
@@ -30,23 +32,28 @@ class _ChatPageState extends State<ChatPage> {
     return Padding(
       padding: const EdgeInsets.only(right: 18.0, left: 18, top: 10),
       child: Container(
-        height: MediaQuery.of(context).size.height * .067,
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
+    //    height: MediaQuery.of(context).size.height * .067,
+      //  width: MediaQuery.of(context).size.width,
+      /*  decoration: BoxDecoration(
             border: Border.all(width: 2),
             color: Colors.white,
-            borderRadius: BorderRadius.circular(35)),
+            borderRadius: BorderRadius.circular(35)),*/
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Container(
-              width: MediaQuery.of(context).size.width * .75,
-              padding: EdgeInsets.only(left: 20),
+            Expanded(
+              //   width: MediaQuery.of(context).size.width * .75,
+              //  padding: EdgeInsets.only(left: 20),
               child: TextField(
                 textDirection: TextDirection.rtl,
                 controller: textEditingController,
+                maxLines: null,
+                keyboardType: TextInputType.multiline,
                 decoration: InputDecoration(
-                    hintText: 'ادخل رسالتك هنا', hintStyle: TextStyle()),
+                    filled: true,
+                    fillColor: Colors.white70,
+                    hintText: 'ادخل رسالتك هنا',
+                    hintStyle: TextStyle()),
                 style: TextStyle(
                     fontFamily: 'Cairo', fontSize: 18, letterSpacing: 1),
                 cursorHeight: 20,
@@ -79,7 +86,8 @@ class _ChatPageState extends State<ChatPage> {
       ),
     );
   }
-late MessageRoom messageRoom;
+
+  late MessageRoom messageRoom;
   @override
   void initState() {
     _bannerAd = BannerAd(
@@ -119,11 +127,12 @@ late MessageRoom messageRoom;
     _bannerAd.load();
     _bannerAd2.load();
     textEditingController = new TextEditingController();
-   Timer(Duration(seconds: 5), (){
+    Timer(Duration(seconds: 5), () {
       timer = Timer.periodic(Duration(seconds: 3), (t) {
-      BlocProvider.of<MessagesBloc>(context).add(RefreshMessages(_scrollController,messageRoom));
+        BlocProvider.of<MessagesBloc>(context)
+            .add(RefreshMessages(_scrollController, messageRoom));
+      });
     });
-   });
     _scrollController = new ScrollController();
 
     super.initState();
@@ -167,7 +176,7 @@ late MessageRoom messageRoom;
                     child: CircularProgressIndicator(),
                   );
                 } else if (state is MessagesFetched) {
-                  messageRoom=state.messageRoom;
+                  messageRoom = state.messageRoom;
                   return ListView.builder(
                     controller: _scrollController,
                     shrinkWrap: true,
@@ -196,7 +205,32 @@ late MessageRoom messageRoom;
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 8.0, vertical: 10),
-                                child: Text(
+                                child:SelectableLinkify(options: LinkifyOptions(humanize: true,removeWww: true),
+   linkStyle: TextStyle(
+     color: state.messageRoom.messages[i]
+                                                  .userId ==
+                                              FirebaseAuth
+                                                  .instance.currentUser!.uid
+                                          ? Colors.yellow
+                                          : Colors.blue,
+   ),
+                                      onOpen: (link) async {
+                                        if (await canLaunch(link.url)) {
+                                          await launch(link.url);
+                                        } else {
+                                          throw 'Could not launch $link';
+                                        }
+                                      },text: state.messageRoom.messages[i].message,   textDirection: TextDirection.rtl,
+                                  textAlign: TextAlign.right,
+                                  style: TextStyle(
+                                      color: state.messageRoom.messages[i]
+                                                  .userId ==
+                                              FirebaseAuth
+                                                  .instance.currentUser!.uid
+                                          ? Colors.white
+                                          : Colors.black,
+                                      fontFamily: 'Cairo',
+                                      fontWeight: FontWeight.bold),) /*Text(
                                   state.messageRoom.messages[i].message,
                                   textDirection: TextDirection.rtl,
                                   textAlign: TextAlign.right,
@@ -209,7 +243,7 @@ late MessageRoom messageRoom;
                                           : Colors.black,
                                       fontFamily: 'Cairo',
                                       fontWeight: FontWeight.bold),
-                                ),
+                                )*/,
                               ),
                             ),
                           ),
@@ -228,11 +262,11 @@ late MessageRoom messageRoom;
             ),
           ),
           buildBottomContainer(),
-             if(_isBannerAd2Ready)
-          Container(
-              height: _bannerAd2.size.height.toDouble(),
-              width: _bannerAd2.size.width.toDouble(),
-              child: AdWidget(ad: _bannerAd2)),
+          if (_isBannerAd2Ready)
+            Container(
+                height: _bannerAd2.size.height.toDouble(),
+                width: _bannerAd2.size.width.toDouble(),
+                child: AdWidget(ad: _bannerAd2)),
           SizedBox(
             height: 15,
           ),

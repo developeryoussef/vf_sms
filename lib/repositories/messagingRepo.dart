@@ -23,10 +23,10 @@ class MessagingRepo {
           "senderId": FirebaseAuth.instance.currentUser!.uid,
           "messageText": message
         });
-        if(response.statusCode==200){
-          return true;
-        }else{
-          return false;
-        }
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

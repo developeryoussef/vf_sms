@@ -98,7 +98,7 @@ buildContainer(context, _height, _width, nameEn, nameAr, picPath, tag, tab) {
           borderRadius: BorderRadius.circular(28),
         ),
         child: Container(
-          height: _height * .15,
+          height: _height * .19,
           width: _width * .4,
           child: Center(
             child: Column(
@@ -123,8 +123,8 @@ buildContainer(context, _height, _width, nameEn, nameAr, picPath, tag, tab) {
                   style: TextStyle(
                       color: kMainColor,fontFamily: 'Cairo',
                       fontWeight: FontWeight.w800,
-                      fontSize: 18,
-                      letterSpacing: .1),
+                      fontSize:nameEn=="followers"?15: 18,
+                      letterSpacing:nameEn=="followers"?null: .1),
                 )
               ],
             ),

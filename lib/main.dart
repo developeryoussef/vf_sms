@@ -15,10 +15,12 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:rewayat_alkateb_islam/blocs/blocObserver.dart';
+import 'package:rewayat_alkateb_islam/repositories/messagingRepo.dart';
 import 'package:rewayat_alkateb_islam/views/screens/authScreen.dart';
 import 'package:rewayat_alkateb_islam/views/screens/homepage.dart';
 import 'package:rewayat_alkateb_islam/views/screens/offlinePage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 void configLoading() {
   EasyLoading.instance
     ..displayDuration = const Duration(milliseconds: 40000)
@@ -32,6 +34,7 @@ void configLoading() {
     ..userInteractions = true
     ..dismissOnTap = false;
 }
+
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
@@ -50,7 +53,9 @@ void initMessaging() async {
     'high_importance_channel', // id
     'High Importance Notifications', // title
     'This channel is used for important notifications.', // description
-    importance: Importance.high,
+    importance: Importance.high, playSound: true, enableLights: true,
+    enableVibration: true,
+    showBadge: true,
   );
 
   flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
@@ -99,22 +104,23 @@ void initMessaging() async {
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
     print('A new onMessageOpenedApp event was published!');
   });
-      
-      SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
+  FirebaseMessaging.instance.subscribeToTopic('all');
 
-    FirebaseMessaging.instance.getToken().then((token) async {
-      sharedPreferences.setString("token", token!);
-      print(token);
-    });
-  
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
+  FirebaseMessaging.instance.getToken().then((token) async {
+    sharedPreferences.setString("token", token!);
+    print(token);
+  });
 }
+
 late bool isConnected;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
- isConnected=await ConnectivityWrapper.instance.isConnected;
-   
+  isConnected = await ConnectivityWrapper.instance.isConnected;
+
   await Firebase.initializeApp();
-    MobileAds.instance.initialize();
+  MobileAds.instance.initialize();
 
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
@@ -142,11 +148,13 @@ class MyApp extends StatelessWidget {
         TargetPlatform.android: SharedAxisPageTransitionsBuilder(
           transitionType: SharedAxisTransitionType.scaled,
         )
-      })),      builder: EasyLoading.init(),
-
-      home:isConnected? auth.FirebaseAuth.instance.currentUser == null? AuthScreen():
-          
-           MyHomePage():OfflinePage(),
+      })),
+      builder: EasyLoading.init(),
+      home: isConnected
+          ? auth.FirebaseAuth.instance.currentUser == null
+              ? AuthScreen()
+              : MyHomePage()
+          : OfflinePage(),
     );
   }
 }

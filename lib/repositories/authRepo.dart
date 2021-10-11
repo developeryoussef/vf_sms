@@ -83,9 +83,9 @@ class AuthRepo {
                                                   if (value) {
                                                     await UserRepo()
                                                         .updateUserReferrer(
-                                                            refer);                                                EasyLoading.dismiss();
-                                                Navigator.pop(context);
-
+                                                            refer);
+                                                    EasyLoading.dismiss();
+                                                    Navigator.pop(context);
                                                   } else {
                                                     ScaffoldMessenger.of(
                                                             contextt)
@@ -94,8 +94,8 @@ class AuthRepo {
                                                                 "تاكد من ادخال كود صحيح او تخطي")));
                                                   }
                                                 });
-
-                                              } else {EasyLoading.dismiss();
+                                              } else {
+                                                EasyLoading.dismiss();
                                                 ScaffoldMessenger.of(contextt)
                                                     .showSnackBar(SnackBar(
                                                         content: Text(

@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,6 +9,7 @@ import 'package:gradient_widgets/gradient_widgets.dart';
 import 'package:rewayat_alkateb_islam/blocs/bloc/user_bloc.dart';
 import 'package:rewayat_alkateb_islam/constants.dart';
 import 'package:rewayat_alkateb_islam/views/screens/authScreen.dart';
+import 'package:rewayat_alkateb_islam/views/screens/videoPage.dart';
 import 'package:share/share.dart';
 import 'package:superellipse_shape/superellipse_shape.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -21,8 +23,16 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
+  late String earningVideoId;
+loadVideoId()async{
+  Response response=await Dio().get("$baseUrl/voiceNovels/earnVideo");
+  if(response.statusCode==200){
+    earningVideoId=response.data[0]['videoId'];
+  }
+}
   @override
   void initState() {
+    loadVideoId();
     // TODO: implement initState
     super.initState();
   }
@@ -80,7 +90,41 @@ class _UserPageState extends State<UserPage> {
                     foregroundImage: AssetImage("assets/images/avatar.png"),
                   ),
                   SizedBox(
-                    height: _height * .02,
+                    height: _height * .03,
+                  ),
+                  Bounce(
+                    onPressed: () {
+                      Clipboard.setData(
+                          ClipboardData(text: "${state.user.firebaseId}"));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("تم نسخ الاي دي الخاص بك")));
+                    },
+                    duration: Duration(milliseconds: 100),
+                    child: Material(
+                      shape: SuperellipseShape(
+                          borderRadius: BorderRadius.circular(26)),
+                      color: Colors.white,
+                      shadowColor: Colors.grey,
+                      elevation: 5,
+                      child: Container(
+                        width: _width * .5,
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "نسخ الاي دي الخاص بك",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: 'Cairo',
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: _height * .03,
                   ),
                   Container(
                     child: Center(
@@ -116,7 +160,35 @@ class _UserPageState extends State<UserPage> {
                         ),
                       ),
                     ),
+                  ),   SizedBox(
+                    height: _height * .02,
                   ),
+                  GradientButton(
+                      shapeRadius: BorderRadius.circular(6),
+                      increaseWidthBy: _width * .7,
+                      increaseHeightBy: 2,
+                      elevation: 0,
+                      shadowColor: Colors.transparent,
+                      gradient: LinearGradient(colors: [
+                        kMainColor,
+                        Color(0xFF02A2FF),
+                      ]),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "الربح من التطبيق",
+                            style: TextStyle(
+                                fontFamily: 'Cairo',
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                      callback: () async {
+                Navigator.push(context, MaterialPageRoute(builder: (builder)=>VideoApp(videoId: earningVideoId)));
+                      }),
+               
                   SizedBox(
                     height: _height * .02,
                   ),

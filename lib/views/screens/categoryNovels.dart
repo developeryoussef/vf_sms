@@ -381,49 +381,59 @@ class _CategoryNovelsState extends State<CategoryNovels> {
                                                     ),
                                                     Text(widget.nameAr2),
                                                     SizedBox(
-                                                      width: _width * .2,
-                                                    ),
-                                                    Text(
-                                                      state.novels[(i - 1)]
-                                                          .title,
-                                                      style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontFamily: 'Cairo',
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 16),
+                                                      width: _width * .1,
                                                     ),
                                                     Expanded(
-                                                        child: Align(
-                                                      alignment:
-                                                          Alignment.centerRight,
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                right: 8.0),
-                                                        child: Container(
-                                                          decoration: BoxDecoration(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          8),
-                                                              boxShadow: [
-                                                                BoxShadow(
-                                                                    color: Colors
-                                                                        .grey,
-                                                                    blurRadius:
-                                                                        2)
-                                                              ],
+                                                      flex: 2,
+                                                      child: Center(
+                                                        child: Text(
+                                                          state.novels[(i - 1)]
+                                                              .title,
+                                                          style: TextStyle(
                                                               color:
-                                                                  Colors.white),
-                                                          height: 40,
-                                                          width: 50,
-                                                          child: Image.asset(
-                                                              widget.photoPath),
+                                                                  Colors.black,
+                                                              fontFamily:
+                                                                  'Cairo',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontSize: 14),
                                                         ),
                                                       ),
-                                                    ))
+                                                    ),
+                                                    Expanded(
+                                                        flex: 1,
+                                                        child: Align(
+                                                          alignment: Alignment
+                                                              .centerRight,
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    right: 8.0),
+                                                            child: Container(
+                                                              decoration: BoxDecoration(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              8),
+                                                                  boxShadow: [
+                                                                    BoxShadow(
+                                                                        color: Colors
+                                                                            .grey,
+                                                                        blurRadius:
+                                                                            2)
+                                                                  ],
+                                                                  color: Colors
+                                                                      .white),
+                                                              height: 40,
+                                                              width: 50,
+                                                              child: Image
+                                                                  .asset(widget
+                                                                      .photoPath),
+                                                            ),
+                                                          ),
+                                                        ))
                                                   ],
                                                 ),
                                                 decoration: BoxDecoration(
