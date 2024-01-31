@@ -1,0 +1,76 @@
+{
+  "project_info": {
+    "project_number": "794665241876",
+    "project_id": "socialmedia-d14f7",
+    "storage_bucket": "socialmedia-d14f7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:794665241876:android:fbe32cc3fc0a2d76928601",
+        "android_client_info": {
+          "package_name": "dev.hefnyq.geo_admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "794665241876-rj4r7gfcgrvsfmk8qdv4srmk85l5fhu4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBG7PWrDM5dwRYbqmxusgP61hHJrmDYUGQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "794665241876-rj4r7gfcgrvsfmk8qdv4srmk85l5fhu4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:794665241876:android:c2637dc4c391898e928601",
+        "android_client_info": {
+          "package_name": "dev.youssef.geo_hefny"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "794665241876-nh4e6h3ej9h5qs10vvl18bbgo2o24b99.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dev.youssef.geo_hefny",
+            "certificate_hash": "5281931468320525da122de2b39913ff480ce45b"
+          }
+        },
+        {
+          "client_id": "794665241876-rj4r7gfcgrvsfmk8qdv4srmk85l5fhu4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBG7PWrDM5dwRYbqmxusgP61hHJrmDYUGQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "794665241876-rj4r7gfcgrvsfmk8qdv4srmk85l5fhu4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

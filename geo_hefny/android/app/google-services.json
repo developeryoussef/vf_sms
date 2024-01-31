@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "794665241876",
+    "project_id": "socialmedia-d14f7",
+    "storage_bucket": "socialmedia-d14f7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:794665241876:android:c2637dc4c391898e928601",
+        "android_client_info": {
+          "package_name": "dev.youssef.geo_hefny"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "794665241876-rj4r7gfcgrvsfmk8qdv4srmk85l5fhu4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBG7PWrDM5dwRYbqmxusgP61hHJrmDYUGQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "794665241876-rj4r7gfcgrvsfmk8qdv4srmk85l5fhu4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
